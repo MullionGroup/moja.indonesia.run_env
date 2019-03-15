@@ -1,0 +1,498 @@
+{
+	"LocalDomain": {
+		"type": "spatial_tiled",
+		"start_date": "2000/01/01",
+		"end_date": "2012/12/31",
+		"sequencer_library": "internal.flint",
+		"sequencer": "CalendarAndEventFlintDataSequencer",
+		"simulateLandUnit": "simulateLandUnit",
+		"landUnitBuildSuccess": "landUnitBuildSuccess",
+		"landscape": {
+			"iteration_type": "BlockIndex",
+			"num_threads": 0,
+			"provider": "FlintTiled",
+			"blocks": [
+				{
+					"tile_index": 33041,
+					"block_index": 8
+				},
+				{
+					"tile_index": 33041,
+					"block_index": 9
+				},
+				{
+					"tile_index": 33041,
+					"block_index": 18
+				},
+				{
+					"tile_index": 33041,
+					"block_index": 19
+				}
+			]
+		},
+		"landscape_cell": {
+			"iteration_type": "CellIndex",
+			"num_threads": 0,
+			"provider": "FlintTiled",
+			"cells": [
+				{
+					"tile_index": 33041,
+					"block_index": 9,
+					"cell_index": 282
+				}
+			]
+		},
+		"landscape_tiles": {
+            "provider": "FlintTiled",
+            "num_threads": 0,
+            "tile_size_x": 1.0,
+            "tile_size_y": 1.0,
+            "x_pixels": 4000,
+            "y_pixels": 4000,
+            "tiles": [
+         {
+            "x": 101,
+            "y": -2,
+            "index": 33401
+        },
+        {
+            "x": 101,
+            "y": -1,
+            "index": 33041
+        },
+        {
+            "x": 101,
+            "y": 0,
+            "index": 32681
+        },
+        {
+            "x": 102,
+            "y": -2,
+            "index": 33402
+        },
+        {
+            "x": 102,
+            "y": -1,
+            "index": 33042
+        },
+        {
+            "x": 102,
+            "y": 0,
+            "index": 32682
+        },
+        {
+            "x": 103,
+            "y": -2,
+            "index": 33403
+        },
+        {
+            "x": 103,
+            "y": -1,
+            "index": 33043
+        },
+        {
+            "x": 103,
+            "y": 0,
+            "index": 32683
+        },
+        {
+            "x": 104,
+            "y": -2,
+            "index": 33404
+        },
+        {
+            "x": 104,
+            "y": -1,
+            "index": 33044
+        },
+        {
+            "x": 104,
+            "y": 0,
+            "index": 32684
+        }
+            ]
+        },
+		"operationManager": {
+			"name": "Simple",
+			"use_kahan": false,
+			"allow_zero_result_transfers": false,
+			"process_timeseries": false
+		},
+		"settings": {
+			"stats_on": true,
+			"stats_description": "indo simulation",
+			"stats_databasename": "./data/output/results/indo_run.db",
+			"drop_and_create_tables": false,
+			"reset_variables": true
+		}
+	},
+	"Spinup": {
+		"enabled": true,
+		"sequencer_library": "moja.modules.indonesia",
+		"sequencer": "SpinupSequencer",
+		"simulateLandUnit": "simulateLandUnit",
+		"landUnitBuildSuccess": "landUnitBuildSuccess"
+	},
+	"Libraries": {
+		"moja.modules.indonesia": "external"
+	},
+	"Libraries_lin": {
+		"moja.modules.indonesia": {
+			"library": "moja.modules.indonesia.so",
+			"path": "/usr/local/lib/",
+			"type": "external"
+		}	
+	},
+	"Pools": [
+	
+			"initialValues", "atmosphereCM", 
+			"forestStemCM", "forestBranchCM", "forestBarkCM", "forestLeafCM",	"forestCoarseRootCM", "forestFineRootCM", 
+			"forestResistantDeadwoodCM", "forestDecomposableDeadwoodCM", 
+			"forestResistantBarkLitterCM", "forestDecomposableBarkLitterCM", 
+			"forestResistantLeaflitterCM", "forestDecomposableLeaflitterCM", 
+			"forestResistantCoarseDeadRootCM", "forestDecomposableCoarseDeadRootCM", 
+			"forestResistantFineDeadRootCM", "forestDecomposableFineDeadRootCM", 
+			"forestBioFuelCM", "forestPaperPulpCM",	"forestPackingCM", "forestFurnitureCM",	
+			"forestFiberboardCM", "forestConstructionCM", "forestResidueCM",		
+			"soilDPM", "soilRPM", "soilHUM", "soilIOM"
+	],
+	"Variables": [
+		{ "localDomainId": 1 },
+		{ "landUnitBuildSuccess": true },
+		{ "simulateLandUnit": true },
+		{ "landUnitArea": 1.0 },
+		{ "forestExists": false },
+		{ "forestAge": 0.0 },
+		{ "simulationUnitData": {
+				"flintdata": {
+					"library": "moja.modules.indonesia",
+					"type": "SimulationUnitData"
+				}
+		  }
+		},
+		{
+			"ecologicalZone": {
+				"transform": {
+					"library": "internal.flint",
+					"type": "LocationIdxFromFlintDataTransform",
+					"provider": "FlintTiled",
+					"data_id": "forest_type"
+				}
+			}
+		},
+		{
+			"primaryExtent": {
+				"transform": {
+					"library": "moja.modules.indonesia",
+					"type": "ForestCoverTransform",
+					"provider": "FlintTiled",
+					"data_id": "primary_forest_extent"
+				}
+			}
+		},
+		{
+			"fire": {
+				"transform": {
+					"library": "moja.modules.indonesia",
+					"type": "ForestCoverTransform",
+					"provider": "FlintTiled",
+					"data_id": "fire"
+				}
+			}
+		},
+		{
+			"forestCover": {
+				"transform": {
+					"library": "moja.modules.indonesia",
+					"type": "ForestCoverTransform",
+					"provider": "FlintTiled",
+					"data_id": "forest_cover"
+				}
+			}
+		},
+		{
+			"plantationExtent": {
+				"transform": {
+					"library": "internal.flint",
+					"type": "LocationIdxFromFlintDataTransform",
+					"provider": "FlintTiled",
+					"data_id": "plantations"
+				}
+			}
+		},		
+		{
+			"province": {
+				"transform": {
+					"library": "internal.flint",
+					"type": "LocationIdxFromFlintDataTransform",
+					"provider": "FlintTiled",
+					"data_id": "province"
+				}
+			}
+		},		
+		{
+		  "reportingClassifiers": {
+				"transform": {
+					"library": "internal.flint",
+					"type": "CompositeTransform",
+					"vars": [	"province" ],
+					"allow_nulls": true
+				}
+		  }
+		},	
+		{
+		  "runStatistics": {
+				"flintdata": {
+					"library": "moja.modules.indonesia",
+					"type": "RunStatistics",
+					"settings": {	}
+				}
+		  }
+		},		
+		{ "forestTypes": {
+				"transform": {
+					"library": "moja.modules.indonesia",
+					"type": "ForestTypesTransform"
+				}
+			}
+		}, 
+		{ "forest_type_records": {
+				"transform": {
+					"library": "internal.flint",
+					"queryString": "SELECT id,name,'indonesia.ForestType' as type,carbon_frac_stem,carbon_frac_branch,carbon_frac_bark,carbon_frac_leaf,carbon_frac_coarse_root,carbon_frac_fine_root,turnover_frac_branch,turnover_frac_bark,turnover_frac_leaf,turnover_frac_coarse_root,turnover_frac_fine_root,resistant_frac_stem,resistant_frac_branch,resistant_frac_bark,resistant_frac_leaf,resistant_frac_coarse_root,resistant_frac_fine_root,breakdown_frac_decomposable_deadwood,breakdown_frac_resistant_deadwood,breakdown_frac_decomposable_bark_litter,breakdown_frac_resistant_bark_litter,breakdown_frac_decomposable_leaf_litter,breakdown_frac_resistant_leaf_litter,breakdown_frac_decomposable_coarse_dead_root,breakdown_frac_resistant_coarse_dead_root,breakdown_frac_decomposable_fine_dead_root,breakdown_frac_resistant_fine_dead_root,atmospheric_frac_decomposable_deadwood_breakdown,atmospheric_frac_resistant_deadwood_breakdown,atmospheric_frac_decomposable_bark_litter_breakdown,atmospheric_frac_resistant_bark_litter_breakdown,atmospheric_frac_decomposable_leaf_litter_breakdown,atmospheric_frac_resistant_leaf_litter_breakdown,atmospheric_frac_decomposable_coarse_dead_root_breakdown,atmospheric_frac_resistant_coarse_dead_root_breakdown,atmospheric_frac_decomposable_fine_dead_root_breakdown,atmospheric_frac_resistant_fine_dead_root_breakdown,stemwood_frac,bark_frac,branch_frac,foliage_frac,coarse_root_frac,fine_root_frac,max,k,m,root_to_shoot FROM moja_forest_type;",
+					"type": "SQLQueryTransform",
+					"provider": "SQLite"
+				}
+			}
+		},		
+		{	"forestManagement": {
+				"transform": {
+					"library": "moja.modules.indonesia",
+					"type": "ForestManagementTransform",
+					"provider": "SQLite"
+				}
+			}
+		},
+		{ "eventqueue": {
+				"flintdata": {
+					"library": "internal.flint",
+					"type": "EventQueue"
+				}
+			}
+		},
+		{ "spatialLocationInfo": {
+				"flintdata": {
+					"library": "internal.flint",
+					"type": "SpatialLocationInfo",
+					"settings": {}
+				}
+			}
+		},
+		{	"forestType": null },
+		{	"initForestDebris": {
+				"flintdata": {
+					"library": "moja.modules.indonesia",
+					"type": "InitForestDebris",
+					"settings": {
+						 "decomposableDeadwoodInit": 0.0,		"resistantDeadwoodInit": 0.0,
+						 "decomposableBarkLitterInit": 0.0,		"resistantBarkLitterInit": 0.0,
+						 "decomposableLeafLiterInit": 0.0,		"resistantLeafLiterInit": 0.0,
+						 "decomposableCoarseDeadRootInit": 0.0,	"resistantCoarseDeadRootInit": 0.0,
+						 "decomposableFineDeadRootInit": 0.0,	"resistantFineDeadRootInit": 0.0						
+					}
+				}
+			}
+		},
+		{	"soil": {
+				"flintdata": {
+					"library": "moja.modules.indonesia",
+					"type": "Soil",
+					"settings": {
+						"frac_decomposable_litter_breakdown_to_dpm": 1.0,
+						"frac_resistant_litter_breakdown_to_rpm": 1.0
+					}
+				}
+			}
+		}
+	],
+	"SpinupModules": {
+		"TransactionManagerEndOfStepModule": {
+			"enabled": true,
+			"library": "internal.flint",
+			"order": 10
+		},
+		"SpinupSequencer": {
+			"enabled": true,
+			"library": "moja.modules.indonesia",
+			"order": 20
+		},
+		"SpinupLandUnitModule": {
+			"enabled": true,
+			"library": "moja.modules.indonesia",
+			"order": 30
+		},
+		"DisturbanceEventModule": {
+			"enabled": true,
+			"library": "moja.modules.indonesia",
+			"order": 40
+		},
+		"ForestDebrisModule": {
+			"enabled": true,
+			"library": "moja.modules.indonesia",
+			"order": 50
+		},
+		"ForestGrowthModule": {
+			"enabled": true,
+			"library": "moja.modules.indonesia",
+			"order": 60
+		}	
+	},
+	"SpinupVariables": [
+		{ "spinup_required": false },
+		{ "start_date": { "$date": "1950/1/1" } },
+		{ "end_date": { "$date": "1999/12/31" } },
+		{	"simulationUnitData": {
+				"flintdata": {
+					"library": "moja.modules.indonesia",
+					"type": "SimulationUnitData",
+					"settings": {}
+				}
+			}
+		},
+		{ "plantation_record": null	}
+	],
+	"Modules": {
+		"CalendarAndEventFlintDataSequencer": {
+			"enabled": true,
+			"library": "internal.flint",
+			"order": 10
+		},
+		"TransactionManagerEndOfStepModule": {
+			"enabled": true,
+			"library": "internal.flint",
+			"order": 20
+		},
+		"BuildLandUnitModule": {
+			"enabled": true,
+			"library": "moja.modules.indonesia",
+			"order": 30
+		},
+		"DisturbanceEventModule": {
+			"enabled": true,
+			"library": "moja.modules.indonesia",
+			"order": 40
+		},
+		"ForestDebrisModule": {
+			"enabled": true,
+			"library": "moja.modules.indonesia",
+			"order": 50
+		},
+		"ForestGrowthModule": {
+			"enabled": true,
+			"library": "moja.modules.indonesia",
+			"order": 60
+		},
+		"AggregatorStockStep": {
+			"enabled": true,
+			"library": "internal.flint",
+			"order": 70
+		},
+		"AggregatorLandUnit": {
+		  "enabled": true,
+		  "library": "moja.modules.indonesia",
+		  "order": 80,
+		  "settings": {
+			"output_month_12_only": true,
+			"tileIndex_dim_enabled": true,
+			"blockIndex_dim_enabled": true,
+			"cellIndex_dim_enabled": false,
+			"do_stock": true,
+			"do_run_statistics": true,
+			"reporting_classifier_set": "reportingClassifiers"
+		  }
+		},
+		"AggregatorError": {
+		  "enabled": true,
+		  "library": "moja.modules.indonesia",
+		  "order": 90,
+		  "settings": {
+			"log_errors": true,
+			"log_errors_max_number": 32000,
+			"log_errors_per_block": true
+		  }
+		},
+		"LandUnitSQLiteWriter": {
+		  "enabled": true,
+		  "library": "moja.modules.indonesia",
+		  "order": 100,
+		  "settings": {
+			"databasename": "./data/output/results/dbs/output_{var:spatialLocationInfo.tileIdx}_{var:spatialLocationInfo.blockIdx}_{var:spatialLocationInfo.cellIdx}.db"
+		  }
+		},
+		"WriteVariableGrid": {
+			"enabled": true,
+			"library": "internal.flint",
+			"order": 11,
+			"settings": {
+				"output_path": "./data/output/results/spatial_outputs/grids",
+				"use_indexes_for_folder_name": true,
+				"items": [
+					{
+						"enabled": true,
+						"data_name": "forestStemCM",
+						"pool_name": "forestStemCM",
+						"variable_data_type": "double",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -1
+					},
+					{
+						"enabled": false,
+						"data_name": "randomseed_global",
+						"variable_name": "spatialLocationInfo",
+						"property_name": "randomSeedGlobal",
+						"variable_data_type": "UInt32",
+						"on_notification": "TimingShutdown",
+						"nodata_value": 4294967295
+					},
+					{
+						"enabled": false,
+						"data_name": "randomseed_block",
+						"variable_name": "spatialLocationInfo",
+						"property_name": "randomSeedBlock",
+						"variable_data_type": "UInt32",
+						"on_notification": "TimingShutdown",
+						"nodata_value": 4294967295
+					},
+					{
+						"enabled": false,
+						"data_name": "randomseed_cell",
+						"variable_name": "spatialLocationInfo",
+						"property_name": "randomSeedCell",
+						"variable_data_type": "UInt32",
+						"on_notification": "TimingShutdown",
+						"nodata_value": 4294967295
+					},
+					{
+						"enabled": true,
+						"data_name": "simulate_land_unit",
+						"variable_name": "simulateLandUnit",
+						"variable_data_type": "UInt8",
+						"on_notification": "TimingShutdown",
+						"nodata_value": 255
+					},
+					{
+						"enabled": true,
+						"data_name": "errors",
+						"variable_name": "spatialLocationInfo",
+						"property_name": "errorCode",
+						"variable_data_type": "UInt8",
+						"on_notification": "Error",
+						"nodata_value": 255
+					}
+				]
+			}
+		}
+	}
+
+}

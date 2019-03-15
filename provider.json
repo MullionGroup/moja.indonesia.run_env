@@ -1,0 +1,50 @@
+{
+	"Providers": {
+		"SQLite": {
+			"type": "SQLite",
+			"path": "./data/indodb.sqlite",
+			"library": "internal.flint"
+		},
+		"FlintTiled": {
+			"type": "RasterTiled",
+			"tileLatSize": 1.0,
+			"tileLonSize": 1.0,
+			"blockLatSize": 0.1,
+			"blockLonSize": 0.1,
+			"cellLatSize": 0.00025,
+			"cellLonSize": 0.00025,
+			"layers": [{
+					"name": "province",
+					"enable_interpretation": false,
+					"layer_prefix": "provinces",
+					"layer_path": "./data/export_blk/provinces"
+				}, {
+					"name": "plantations",
+					"enable_interpretation": false,
+					"layer_prefix": "fmu_plantation",
+					"layer_path": "./data/export_blk/fmu_plantation"
+				}, {
+					"name": "forest_cover",
+					"enable_interpretation": false,
+					"layer_prefix": "forest_cover",
+					"layer_path": "./data/export_blk/forest_cover"
+				}, {
+					"name": "forest_type",
+					"enable_interpretation": false,
+					"layer_prefix": "everforest_static",
+					"layer_path": "./data/export_blk/everforest_static"
+				}, {
+					"name": "primary_forest_extent",
+					"enable_interpretation": false,
+					"layer_prefix": "primary_forest_extent",
+					"layer_path": "./data/export_blk/primary_forest_extent"
+				}, {
+					"name": "fire",
+					"enable_interpretation": false,
+					"layer_prefix": "fire",
+					"layer_path": "./data/export_blk/fire"
+				}
+			]
+		}
+	}
+}
