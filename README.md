@@ -29,6 +29,75 @@ PS  C:\moja.indonesia.run_env> docker pull mulliongroup/moja-indonesia
 ```powershell
 PS C:\moja.indonesia.run_env> docker run -ti -v C:\moja.indonesia.run_env:/tmp/moja_runenv mulliongroup/moja-indonesia:latest bash
 ```
+#### Create the rasters
+
+```bash
+moja:/tmp/moja_runenv$ cd data
+moja:/tmp/moja_runenv/data$ mkdir -p rasters
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/admin_boundary.shp -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/admin_boundary.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize -a id raw/fmu_plantation.shp -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/fmu_plantation.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/everforest_static.shp -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/everforest_static.tif
+
+moja:/tmp/moja_runenv/data$ mkdir -p rasters/forest_cover
+moja:/tmp/moja_runenv/data$ gdal_translate  -projwin 101.0 0.0 105.0 -3.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" raw/Forest\ Cover/forest2000 rasters/forest_cover/forest2000.tif
+moja:/tmp/moja_runenv/data$ gdal_translate  -projwin 101.0 0.0 105.0 -3.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" raw/Forest\ Cover/forest2001 rasters/forest_cover/forest2001.tif
+moja:/tmp/moja_runenv/data$ gdal_translate  -projwin 101.0 0.0 105.0 -3.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" raw/Forest\ Cover/forest2002 rasters/forest_cover/forest2002.tif
+moja:/tmp/moja_runenv/data$ gdal_translate  -projwin 101.0 0.0 105.0 -3.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" raw/Forest\ Cover/forest2003 rasters/forest_cover/forest2003.tif
+moja:/tmp/moja_runenv/data$ gdal_translate  -projwin 101.0 0.0 105.0 -3.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" raw/Forest\ Cover/forest2004 rasters/forest_cover/forest2004.tif
+moja:/tmp/moja_runenv/data$ gdal_translate  -projwin 101.0 0.0 105.0 -3.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" raw/Forest\ Cover/forest2005 rasters/forest_cover/forest2005.tif
+moja:/tmp/moja_runenv/data$ gdal_translate  -projwin 101.0 0.0 105.0 -3.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" raw/Forest\ Cover/forest2006 rasters/forest_cover/forest2006.tif
+moja:/tmp/moja_runenv/data$ gdal_translate  -projwin 101.0 0.0 105.0 -3.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" raw/Forest\ Cover/forest2007 rasters/forest_cover/forest2007.tif
+moja:/tmp/moja_runenv/data$ gdal_translate  -projwin 101.0 0.0 105.0 -3.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" raw/Forest\ Cover/forest2008 rasters/forest_cover/forest2008.tif
+moja:/tmp/moja_runenv/data$ gdal_translate  -projwin 101.0 0.0 105.0 -3.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" raw/Forest\ Cover/forest2009 rasters/forest_cover/forest2009.tif
+moja:/tmp/moja_runenv/data$ gdal_translate  -projwin 101.0 0.0 105.0 -3.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" raw/Forest\ Cover/forest2010 rasters/forest_cover/forest2010.tif
+moja:/tmp/moja_runenv/data$ gdal_translate  -projwin 101.0 0.0 105.0 -3.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" raw/Forest\ Cover/forest2011 rasters/forest_cover/forest2011.tif
+moja:/tmp/moja_runenv/data$ gdal_translate  -projwin 101.0 0.0 105.0 -3.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" raw/Forest\ Cover/forest2012 rasters/forest_cover/forest2012.tif
+
+moja:/tmp/moja_runenv/data$ mkdir -p rasters/primary_forest_extent
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/FOREST\ 2000/8.\ Extent\ of\ primary\ forest/Extent\ of\ primary\ forest.shp  -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/primary_forest_extent/primaryforestextent2000.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/FOREST\ 2000/8.\ Extent\ of\ primary\ forest/Extent\ of\ primary\ forest.shp  -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/primary_forest_extent/primaryforestextent2001.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/FOREST\ 2000/8.\ Extent\ of\ primary\ forest/Extent\ of\ primary\ forest.shp  -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/primary_forest_extent/primaryforestextent2002.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/FOREST\ 2000/8.\ Extent\ of\ primary\ forest/Extent\ of\ primary\ forest.shp  -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/primary_forest_extent/primaryforestextent2003.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/FOREST\ 2000/8.\ Extent\ of\ primary\ forest/Extent\ of\ primary\ forest.shp  -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/primary_forest_extent/primaryforestextent2004.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/FOREST\ 2000/8.\ Extent\ of\ primary\ forest/Extent\ of\ primary\ forest.shp  -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/primary_forest_extent/primaryforestextent2005.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/FOREST\ 2000/8.\ Extent\ of\ primary\ forest/Extent\ of\ primary\ forest.shp  -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/primary_forest_extent/primaryforestextent2006.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/FOREST\ 2000/8.\ Extent\ of\ primary\ forest/Extent\ of\ primary\ forest.shp  -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/primary_forest_extent/primaryforestextent2007.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/FOREST\ 2000/8.\ Extent\ of\ primary\ forest/Extent\ of\ primary\ forest.shp  -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/primary_forest_extent/primaryforestextent2008.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/FOREST\ 2000/8.\ Extent\ of\ primary\ forest/Extent\ of\ primary\ forest.shp  -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/primary_forest_extent/primaryforestextent2009.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/FOREST\ 2000/8.\ Extent\ of\ primary\ forest/Extent\ of\ primary\ forest.shp  -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/primary_forest_extent/primaryforestextent2010.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/FOREST\ 2000/8.\ Extent\ of\ primary\ forest/Extent\ of\ primary\ forest.shp  -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/primary_forest_extent/primaryforestextent2011.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/FOREST\ 2000/8.\ Extent\ of\ primary\ forest/Extent\ of\ primary\ forest.shp  -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/primary_forest_extent/primaryforestextent2012.tif
+
+moja:/tmp/moja_runenv/data$ mkdir -p rasters/fire
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/WHOLE\ FOREST/7.\ Fire\ Scars_W/fire00.shp -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/fire/fire00.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/WHOLE\ FOREST/7.\ Fire\ Scars_W/fire01.shp -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/fire/fire01.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/WHOLE\ FOREST/7.\ Fire\ Scars_W/fire02.shp -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/fire/fire02.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/WHOLE\ FOREST/7.\ Fire\ Scars_W/fire03.shp -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/fire/fire03.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/WHOLE\ FOREST/7.\ Fire\ Scars_W/fire04.shp -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/fire/fire04.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/WHOLE\ FOREST/7.\ Fire\ Scars_W/fire05.shp -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/fire/fire05.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/WHOLE\ FOREST/7.\ Fire\ Scars_W/fire06.shp -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/fire/fire06.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/WHOLE\ FOREST/7.\ Fire\ Scars_W/fire07.shp -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/fire/fire07.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/WHOLE\ FOREST/7.\ Fire\ Scars_W/fire08.shp -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/fire/fire08.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/WHOLE\ FOREST/7.\ Fire\ Scars_W/fire09.shp -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/fire/fire09.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/WHOLE\ FOREST/7.\ Fire\ Scars_W/fire10.shp -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/fire/fire10.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/WHOLE\ FOREST/7.\ Fire\ Scars_W/fire11.shp -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/fire/fire11.tif
+moja:/tmp/moja_runenv/data$ gdal_rasterize raw/WHOLE\ FOREST/7.\ Fire\ Scars_W/fire12.shp -burn 1 -te 101.0 -3.0 105.0 0.0 -co "TILED=yes" -co "COMPRESS=DEFLATE" -tr 0.00025 0.00025 -ot Byte -a_nodata 255 rasters/fire/fire12.tif
+```
+
+#### Make flint ready
+
+```bash
+moja:/tmp/moja_runenv/data$ flintdata optimize-rasters rasters/*.tif -o export_blk/
+
+moja:/tmp/moja_runenv/data$ flintdata optimize-rasterstack -o export_blk/ -n forest_cover rasters/forest_cover/forest{year}.tif
+moja:/tmp/moja_runenv/data$ flintdata optimize-rasterstack -o export_blk/ -n fire rasters/fire/fire{year}.tif
+moja:/tmp/moja_runenv/data$ flintdata optimize-rasterstack -o export_blk/ -n primary_forest_extent rasters/primary_forest_extent/primaryforestextent{year}.tif
+```
+
+
+
+#### Run the Flint on the provided configuration files
+
 ```bash
 root@86621f96b113:/tmp/moja_runenv# moja.cli --config indo_config.json --config_provider provider.json
 <2019-03-15 04:50:31.840552> (info) - Config has files: 1

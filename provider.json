@@ -16,8 +16,8 @@
 			"layers": [{
 					"name": "province",
 					"enable_interpretation": false,
-					"layer_prefix": "provinces",
-					"layer_path": "./data/export_blk/provinces"
+					"layer_prefix": "admin_boundary",
+					"layer_path": "./data/export_blk/admin_boundary"
 				}, {
 					"name": "plantations",
 					"enable_interpretation": false,
