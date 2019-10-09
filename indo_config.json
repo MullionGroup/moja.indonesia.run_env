@@ -134,7 +134,8 @@
 		"landUnitBuildSuccess": "landUnitBuildSuccess"
 	},
 	"Libraries": {
-		"moja.modules.indonesia": "external"
+		"moja.modules.indonesia": "external",
+		"moja.modules.gdal": "external"
 	},
 	"Libraries_lin": {
 		"moja.modules.indonesia": {
@@ -184,9 +185,10 @@
 			"primaryExtent": {
 				"transform": {
 					"library": "moja.modules.indonesia",
-					"type": "ForestCoverTransform",
+					"type": "TimeSeriesTransform",
 					"provider": "FlintTiled",
-					"data_id": "primary_forest_extent"
+					"data_id": "primary_forest_extent",
+					"settings": { "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012]	}
 				}
 			}
 		},
@@ -194,9 +196,10 @@
 			"fire": {
 				"transform": {
 					"library": "moja.modules.indonesia",
-					"type": "ForestCoverTransform",
+					"type": "TimeSeriesTransform",
 					"provider": "FlintTiled",
-					"data_id": "fire"
+					"data_id": "fire",
+					"settings": { "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012]	}
 				}
 			}
 		},
@@ -204,9 +207,10 @@
 			"forestCover": {
 				"transform": {
 					"library": "moja.modules.indonesia",
-					"type": "ForestCoverTransform",
+					"type": "TimeSeriesTransform",
 					"provider": "FlintTiled",
-					"data_id": "forest_cover"
+					"data_id": "forest_cover",
+					"settings": { "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012]	}
 				}
 			}
 		},
@@ -429,22 +433,274 @@
 			"databasename": "./data/output/results/dbs/output_{var:spatialLocationInfo.tileIdx}_{var:spatialLocationInfo.blockIdx}_{var:spatialLocationInfo.cellIdx}.db"
 		  }
 		},
-		"WriteVariableGrid": {
+		"WriteVariableGeotiff": {
 			"enabled": true,
-			"library": "internal.flint",
+			"library": "moja.modules.gdal",
 			"order": 11,
 			"settings": {
 				"output_path": "./data/output/results/spatial_outputs/grids",
 				"use_indexes_for_folder_name": true,
 				"items": [
 					{
-						"enabled": true,
+						"enabled": false,
 						"data_name": "forestStemCM",
 						"pool_name": "forestStemCM",
 						"variable_data_type": "double",
 						"on_notification": "OutputStep",
 						"output_annual_only": true,
 						"nodata_value": -1
+					},
+					{
+						"enabled": false,
+						"data_name": "atmosphereCM",
+						"pool_name": "atmosphereCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestStemCM",
+						"pool_name": "forestStemCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestBranchCM",
+						"pool_name": "forestBranchCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestBarkCM",
+						"pool_name": "forestBarkCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestLeafCM",
+						"pool_name": "forestLeafCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestCoarseRootCM",
+						"pool_name": "forestCoarseRootCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestFineRootCM",
+						"pool_name": "forestFineRootCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestResistantDeadwoodCM",
+						"pool_name": "forestResistantDeadwoodCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestDecomposableDeadwoodCM",
+						"pool_name": "forestDecomposableDeadwoodCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestResistantBarkLitterCM",
+						"pool_name": "forestResistantBarkLitterCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestDecomposableBarkLitterCM",
+						"pool_name": "forestDecomposableBarkLitterCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestResistantLeaflitterCM",
+						"pool_name": "forestResistantLeaflitterCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestDecomposableLeaflitterCM",
+						"pool_name": "forestDecomposableLeaflitterCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestResistantCoarseDeadRootCM",
+						"pool_name": "forestResistantCoarseDeadRootCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestDecomposableCoarseDeadRootCM",
+						"pool_name": "forestDecomposableCoarseDeadRootCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestResistantFineDeadRootCM",
+						"pool_name": "forestResistantFineDeadRootCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestDecomposableFineDeadRootCM",
+						"pool_name": "forestDecomposableFineDeadRootCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestBioFuelCM",
+						"pool_name": "forestBioFuelCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestPaperPulpCM",
+						"pool_name": "forestPaperPulpCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestPackingCM",
+						"pool_name": "forestPackingCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestFurnitureCM",
+						"pool_name": "forestFurnitureCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestFiberboardCM",
+						"pool_name": "forestFiberboardCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestConstructionCM",
+						"pool_name": "forestConstructionCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "forestResidueCM",
+						"pool_name": "forestResidueCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "soilDPM",
+						"pool_name": "soilDPM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "soilRPM",
+						"pool_name": "soilRPM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "soilHUM",
+						"pool_name": "soilHUM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
+					},
+					{
+						"enabled": false,
+						"data_name": "soilIOM",
+						"pool_name": "soilIOM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999
 					},
 					{
 						"enabled": false,
