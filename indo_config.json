@@ -442,16 +442,7 @@
 				"use_indexes_for_folder_name": true,
 				"items": [
 					{
-						"enabled": false,
-						"data_name": "forestStemCM",
-						"pool_name": "forestStemCM",
-						"variable_data_type": "double",
-						"on_notification": "OutputStep",
-						"output_annual_only": true,
-						"nodata_value": -1
-					},
-					{
-						"enabled": false,
+						"enabled": true,
 						"data_name": "atmosphereCM",
 						"pool_name": "atmosphereCM",
 						"variable_data_type": "float",
@@ -460,7 +451,7 @@
 						"nodata_value": -9999
 					},
 					{
-						"enabled": false,
+						"enabled": true,
 						"data_name": "forestStemCM",
 						"pool_name": "forestStemCM",
 						"variable_data_type": "float",
@@ -469,7 +460,7 @@
 						"nodata_value": -9999
 					},
 					{
-						"enabled": false,
+						"enabled": true,
 						"data_name": "forestBranchCM",
 						"pool_name": "forestBranchCM",
 						"variable_data_type": "float",
@@ -478,7 +469,7 @@
 						"nodata_value": -9999
 					},
 					{
-						"enabled": false,
+						"enabled": true,
 						"data_name": "forestBarkCM",
 						"pool_name": "forestBarkCM",
 						"variable_data_type": "float",
@@ -487,7 +478,7 @@
 						"nodata_value": -9999
 					},
 					{
-						"enabled": false,
+						"enabled": true,
 						"data_name": "forestLeafCM",
 						"pool_name": "forestLeafCM",
 						"variable_data_type": "float",
@@ -496,7 +487,7 @@
 						"nodata_value": -9999
 					},
 					{
-						"enabled": false,
+						"enabled": true,
 						"data_name": "forestCoarseRootCM",
 						"pool_name": "forestCoarseRootCM",
 						"variable_data_type": "float",
@@ -505,7 +496,7 @@
 						"nodata_value": -9999
 					},
 					{
-						"enabled": false,
+						"enabled": true,
 						"data_name": "forestFineRootCM",
 						"pool_name": "forestFineRootCM",
 						"variable_data_type": "float",
