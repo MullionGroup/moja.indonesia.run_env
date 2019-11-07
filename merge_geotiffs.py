@@ -12,14 +12,14 @@ def get_start_year(simulation_config):
     start_date = simulation_config["LocalDomain"]["start_date"]
     return datetime.strptime(start_date, "%Y/%m/%d").year
 
-def get_spatial_outputs_dir(simulation_config, run_id):
+def get_spatial_outputs_dir(simulation_config):
     settings = simulation_config["Modules"]["WriteVariableGeotiff"]["settings"]
-    return settings["output_path"].replace("{var:system_runid}", run_id)    
+    return settings["output_path"]    
 
-def find_spatial_outputs(simulation_config, run_id):
+def find_spatial_outputs(simulation_config):
     settings = simulation_config["Modules"]["WriteVariableGeotiff"]["settings"]
 
-    sim_output_dir = get_spatial_outputs_dir(simulation_config, run_id)
+    sim_output_dir = get_spatial_outputs_dir(simulation_config)
     for item in settings["items"]:
         if item["enabled"] and os.path.isdir(os.path.join(sim_output_dir, item["data_name"])):
             spatial_out = {
@@ -46,12 +46,12 @@ def find_indicator_files(spatial_out, start_year):
     
     return indicator_output
 
-def find_spatial_output_files(spatial_out, start_year, run_id):
+def find_spatial_output_files(spatial_out, start_year):
     for year, files in find_indicator_files(spatial_out, start_year).items():
         print("{} - {}".format(spatial_out["data_name"], year))
-        merge_spatial_output_files(spatial_out, year, files, run_id)    
+        merge_spatial_output_files(spatial_out, year, files)    
 
-def merge_spatial_output_files(spatial_out, year, rel_files, run_id):
+def merge_spatial_output_files(spatial_out, year, rel_files):
     #available_mem = psutil.virtual_memory().available
     #gdal_mem = int(available_mem * 0.75 / cpu_count())
     #gdal.SetCacheMax(gdal_mem)
@@ -62,30 +62,18 @@ def merge_spatial_output_files(spatial_out, year, rel_files, run_id):
    
     files = [os.path.join(working_dir, rel_file) for rel_file in rel_files]
     if int(year) > 0:
-        vrt_filename = os.path.join(sim_output_dir, run_id, "spatial_outputs", "grids", data_name, "{}_{}.vrt".format(data_name, year))
+        vrt_filename = os.path.join(sim_output_dir, "spatial_outputs", "grids", data_name, "{}_{}.vrt".format(data_name, year))
     else:
-        vrt_filename = os.path.join(sim_output_dir, run_id, "spatial_outputs", "grids", data_name, "{}.vrt".format(data_name))
+        vrt_filename = os.path.join(sim_output_dir, "spatial_outputs", "grids", data_name, "{}.vrt".format(data_name))
     gdal.BuildVRT(vrt_filename, files)
     
     if int(year) > 0:
-        tif_filename = os.path.join(sim_output_dir, run_id, "spatial_outputs", "grids", data_name, "{}_{}.tif".format(data_name, year))
+        tif_filename = os.path.join(sim_output_dir, "spatial_outputs", "grids", data_name, "{}_{}.tif".format(data_name, year))
     else:
-        tif_filename = os.path.join(sim_output_dir, run_id, "spatial_outputs", "grids", data_name, "{}.tif".format(data_name))
+        tif_filename = os.path.join(sim_output_dir, "spatial_outputs", "grids", data_name, "{}.tif".format(data_name))
     gdal.Translate(tif_filename, vrt_filename, creationOptions=["BIGTIFF=YES", "TILED=YES", "COMPRESS=DEFLATE"])
-
-    # Try to clean up, but it's ok if the files can't be deleted due to something
-    # else holding a lock (virus scanner, etc.)
-    #indicator_dir = os.path.join(sim_output_dir, run_id, "spatial_outputs", "grids", data_name)
-    #tile_dirs = []
-    #try:
-    #    for fn in os.listdir(indicator_dir):
-    #        fn_abs_path = os.path.join(indicator_dir, fn)
-    #        if os.path.isdir(fn_abs_path):
-    #            tile_dirs.append(fn_abs_path)
-    #except:
-    #    pass
         
-    cleanup_items = [vrt_filename]# + files + tile_dirs + [indicator_dir]
+    cleanup_items = [vrt_filename]
     for item in cleanup_items:
         try_delete(item)
 
@@ -100,7 +88,6 @@ def try_delete(file):
 
 if __name__ == "__main__":
     parser = ArgumentParser(description="Merge spatial outputs.")
-    parser.add_argument("--run_id", help="the run id of the simulation", required=True)
     parser.add_argument("--config", help="path to the flint config file", required=False, default="config/indo_config.json")
     args = parser.parse_args()
 
@@ -108,5 +95,5 @@ if __name__ == "__main__":
 
     start_year = get_start_year(simulation_config)
 
-    for output in find_spatial_outputs(simulation_config, args.run_id):
-        find_spatial_output_files(output, start_year, args.run_id)
+    for output in find_spatial_outputs(simulation_config):
+        find_spatial_output_files(output, start_year)

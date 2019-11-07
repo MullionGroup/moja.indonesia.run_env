@@ -269,6 +269,22 @@
 				}
 			}
 		},		
+		{ "plantations": {
+				"transform": {
+					"library": "moja.modules.indonesia",
+					"type": "PlantationsTransform"
+				}
+			}
+		},		
+		{ "plantation_records": {
+				"transform": {
+					"library": "internal.flint",
+					"queryString": "SELECT id, species, company, start_date, end_date, forest_type_id FROM moja_plantation;",
+					"type": "SQLQueryTransform",
+					"provider": "SQLite"
+				}
+			}
+		},		
 		{	"forestManagement": {
 				"transform": {
 					"library": "moja.modules.indonesia",
